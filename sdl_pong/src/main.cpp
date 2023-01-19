@@ -1,34 +1,28 @@
-#include <SDL.h>
-#include <SDL_main.h>
+#include "Game.hpp"
+
 #include <cstdlib>
+#include <stdexcept>
+
+#include <SDL_main.h>
+#include <SDL.h>
+
 
 int main(int, char**)
 {
-
-    SDL_Window* window = SDL_CreateWindow("SDL PONG",
-        SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-        1280, 720, 0);
-
-    SDL_Event evt;
-    bool is_running = true;
-
-    while (is_running)
+    try
     {
-        while (SDL_PollEvent(&evt))
-        {
-            switch (evt.type)
-            {
-                case SDL_QUIT:
-                {
-                    is_running = false;
-                    break;
-                }
-            }
-        }
-        SDL_Delay(1);
+        sdl_pong::Game game;
+        game.Run();
+        return EXIT_SUCCESS;
+    }
+    catch (const std::exception& ex)
+    {
+        SDL_LogCritical(SDL_LOG_CATEGORY_APPLICATION, "%s", ex.what());
+    }
+    catch (...)
+    {
+        SDL_LogCritical(SDL_LOG_CATEGORY_APPLICATION, "Unknown exception while call game.Run()");
     }
 
-    SDL_DestroyWindow(window);
-
-    return EXIT_SUCCESS;
+    return EXIT_FAILURE;
 }

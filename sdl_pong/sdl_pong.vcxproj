@@ -22,14 +22,14 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -53,12 +53,14 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)extern\SDL2\include;$(SolutionDir)extern\SDL2_ttf\include;$(SolutionDir)extern\SDL2_mixer\include;$(SolutionDir)extern\SDL2_image\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)extern\SDL2\include;$(SolutionDir)extern\SDL2_ttf\include;$(SolutionDir)extern\SDL2_mixer\include;$(SolutionDir)extern\SDL2_image\include;$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -73,19 +75,23 @@ xcopy $(SolutionDir)extern\SDL2_mixer\lib\x64\*.dll $(OutDir) /y /d
 xcopy $(SolutionDir)extern\SDL2_mixer\lib\x64\optional\*.dll $(OutDir) /y /d
 xcopy $(SolutionDir)extern\SDL2_image\lib\x64\*.dll $(OutDir) /y /d
 xcopy $(SolutionDir)extern\SDL2_image\lib\x64\optional\*.dll $(OutDir) /y /d
+
+xcopy $(SolutionDir)assets\ $(OutDir) /y /d /s
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)extern\SDL2\include;$(SolutionDir)extern\SDL2_ttf\include;$(SolutionDir)extern\SDL2_mixer\include;$(SolutionDir)extern\SDL2_image\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)extern\SDL2\include;$(SolutionDir)extern\SDL2_ttf\include;$(SolutionDir)extern\SDL2_mixer\include;$(SolutionDir)extern\SDL2_image\include;$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -102,11 +108,41 @@ xcopy $(SolutionDir)extern\SDL2_mixer\lib\x64\*.dll $(OutDir) /y /d
 xcopy $(SolutionDir)extern\SDL2_mixer\lib\x64\optional\*.dll $(OutDir) /y /d
 xcopy $(SolutionDir)extern\SDL2_image\lib\x64\*.dll $(OutDir) /y /d
 xcopy $(SolutionDir)extern\SDL2_image\lib\x64\optional\*.dll $(OutDir) /y /d
+
+xcopy $(SolutionDir)assets\ $(OutDir) /y /d /s
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\AssetsManager.cpp" />
+    <ClCompile Include="src\Font.cpp" />
+    <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\Graphics.cpp" />
+    <ClCompile Include="src\Label.cpp" />
+    <ClCompile Include="src\Levels\TestLevel.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Object.cpp" />
+    <ClCompile Include="src\Sound.cpp" />
+    <ClCompile Include="src\Sprite.cpp" />
+    <ClCompile Include="src\Texture.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\AssetsManager.hpp" />
+    <ClInclude Include="include\Color.hpp" />
+    <ClInclude Include="include\constants.hpp" />
+    <ClInclude Include="include\Font.hpp" />
+    <ClInclude Include="include\fwd.hpp" />
+    <ClInclude Include="include\Game.hpp" />
+    <ClInclude Include="include\GameLevel.hpp" />
+    <ClInclude Include="include\geometry.hpp" />
+    <ClInclude Include="include\Graphics.hpp" />
+    <ClInclude Include="include\Label.hpp" />
+    <ClInclude Include="include\Levels\TestLevel.hpp" />
+    <ClInclude Include="include\MemoryBlock.hpp" />
+    <ClInclude Include="include\Object.hpp" />
+    <ClInclude Include="include\Sound.hpp" />
+    <ClInclude Include="include\Sprite.hpp" />
+    <ClInclude Include="include\Texture.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
