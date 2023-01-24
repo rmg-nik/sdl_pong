@@ -46,10 +46,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\tmp\$(Platform)\$(Configuration)\</IntDir>
+    <EnableClangTidyCodeAnalysis>true</EnableClangTidyCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\tmp\$(Platform)\$(Configuration)\</IntDir>
+    <EnableClangTidyCodeAnalysis>true</EnableClangTidyCodeAnalysis>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -61,6 +63,7 @@
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -119,6 +122,7 @@ xcopy $(SolutionDir)assets\ $(OutDir) /y /d /s
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Graphics.cpp" />
     <ClCompile Include="src\Label.cpp" />
+    <ClCompile Include="src\Levels\PongLevel.cpp" />
     <ClCompile Include="src\Levels\TestLevel.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Object.cpp" />
@@ -137,6 +141,7 @@ xcopy $(SolutionDir)assets\ $(OutDir) /y /d /s
     <ClInclude Include="include\geometry.hpp" />
     <ClInclude Include="include\Graphics.hpp" />
     <ClInclude Include="include\Label.hpp" />
+    <ClInclude Include="include\Levels\PongLevel.hpp" />
     <ClInclude Include="include\Levels\TestLevel.hpp" />
     <ClInclude Include="include\MemoryBlock.hpp" />
     <ClInclude Include="include\Object.hpp" />

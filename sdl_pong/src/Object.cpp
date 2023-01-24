@@ -31,6 +31,16 @@ Bounds Object::GetBounds() const
     return m_bounds;
 }
 
+bool Object::IsVisible() const
+{
+    return m_is_visible;
+}
+
+void Object::SetVisible(bool visible)
+{
+    m_is_visible = visible;
+}
+
 void Object::Update(float)
 {
 }

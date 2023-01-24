@@ -3,14 +3,14 @@
 #include "AssetsManager.hpp"
 #include "Object.hpp"
 #include "constants.hpp"
-#include "Levels/TestLevel.hpp"
+#include "Levels/PongLevel.hpp"
 
 #include <stdexcept>
 #include <string>
 
 #include <SDL.h>
 #include <SDL_image.h>
-#include <SDL_Mixer.h>
+#include <SDL_mixer.h>
 #include <SDL_ttf.h>
 
 using namespace sdl_pong;
@@ -51,14 +51,15 @@ Game::~Game()
 
 void Game::Run()
 {
-    //test
-    m_active_game_level.reset(new TestLevel);
-    m_game_objects = std::move(m_active_game_level->PrepareLevel(m_asset_manager));
+    m_active_game_level.reset(new PongLevel);
+    m_game_objects = m_active_game_level->PrepareLevel(m_asset_manager);
 
     SDL_Event evt;
     bool is_running = true;
 
     auto last_tick = SDL_GetTicks64();
+    double accumulator = 0.;
+
     while (is_running)
     {
         while (SDL_PollEvent(&evt))
@@ -74,12 +75,21 @@ void Game::Run()
         }
 
         auto current_tick = SDL_GetTicks64();
-        float dt = (current_tick - last_tick) / 1000.f;
+        float frame_time = (current_tick - last_tick) / 1000.f;
+        if (frame_time > 0.25)
+            frame_time = 0.25; //to prevent hanging in Update loop
         last_tick = current_tick;
 
-        for (auto& obj : m_game_objects)
-            obj->Update(dt);
+        constexpr float dt = 1.f / 500;
+        accumulator += frame_time;
 
+        while (accumulator >= dt)
+        {
+            for (auto& obj : m_game_objects)
+                obj->Update(dt);
+
+            accumulator -= dt;
+        }
         m_graphics->PrepareFrame();
 
         for (auto& obj : m_game_objects)

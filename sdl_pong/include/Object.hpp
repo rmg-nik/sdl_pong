@@ -29,6 +29,10 @@ namespace sdl_pong
 
         Bounds GetBounds() const;
 
+        bool IsVisible() const;
+
+        void SetVisible(bool visible);
+
         virtual void Update(float dt);
 
         virtual void Draw(const GraphicsPtr& graphics);
@@ -38,5 +42,7 @@ namespace sdl_pong
     private:
 
         Bounds m_bounds{ };
+
+        bool m_is_visible{ true };
     };
 }
